@@ -1,31 +1,55 @@
-#Please modify the below functions so they fulfill the described process.
-#You must use a function from analytics.py in each question to receive credit.
-#There is no provided test file. You must make and submit one yourself. (check older test files for reference)
+import analytics
 
 
-# Modify the below function such that it takes in a list of prices and returns that list with 15% added value
+# Takes in a list of prices and returns that list with 15% added value
 def process_expenses(rawPrices):
-    pass
+    # Uses analytics function
+    return analytics.add_percentage(rawPrices, 15)
 
 
-# Modify the below function such that it asks the user for n scores and then returns the highest score and the average score of the list.
+# Asks the user for n scores and returns the highest and average score
 def analyze_scores(n):
-    pass
+    scores = []
 
-# Modify the below function such that it takes in a list of strings and returns that list with all spaces removed
-#and all letters lower case.
-def sanitize_usernames():
-   pass
+    for i in range(n):
+        score = float(input(f"Enter score {i+1}: "))
+        scores.append(score)
+
+    highest = analytics.highest_value(scores)
+    average = analytics.average_value(scores)
+
+    return highest, average
 
 
-# Modify the list such that it takes in a list as an argument and returns a version of the list with all values over 100.
-def identify_outliers():
-    pass
+# Takes in a list of strings and returns list with spaces removed and lowercase
+def sanitize_usernames(usernames):
+    sanitized = []
+
+    for name in usernames:
+        cleaned = analytics.remove_spaces_lower(name)
+        sanitized.append(cleaned)
+
+    return sanitized
 
 
-# Modify the below function such that it takes in a list of items and asks the user for an item to search for.
-#Sanitize the list to only be lower case worsd with no extra spaces
-#Then return the location of the word using binary search if the list is in order and linear search if it is not.
-#example items = ["  Apple", "Banana ", "  CHERRY  ", " date "]
-def search_and_report():
-    pass
+# Takes in a list and returns a list of all values over 100
+def identify_outliers(values):
+    return analytics.filter_above_threshold(values, 100)
+
+
+# Takes in list of items, sanitizes list, asks user for item to search,
+# Uses binary search if sorted, linear search if not
+def search_and_report(items):
+    sanitized_list = []
+
+    for item in items:
+        cleaned = analytics.remove_spaces_lower(item)
+        sanitized_list.append(cleaned)
+
+    search_item = input("Enter item to search for: ")
+    search_item = analytics.remove_spaces_lower(search_item)
+
+    if analytics.is_sorted(sanitized_list):
+        return analytics.binary_search(sanitized_list, search_item)
+    else:
+        return analytics.linear_search(sanitized_list, search_item)
