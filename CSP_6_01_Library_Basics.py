@@ -29,5 +29,7 @@ def search_and_report(entries):
 
     if analytics.is_sorted(cleaned):
         return analytics.binary_search(cleaned, target)
-    return analytics.linear_search(cleaned, target)
+    else:
+        return analytics.linear_search(cleaned, target)
+
 
