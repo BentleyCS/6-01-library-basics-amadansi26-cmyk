@@ -9,11 +9,11 @@ def test_analyze_scores():
 
 
 def test_sanitize_usernames():
-    assert HW.sanitize_usernames("John Mack" "Albert K")
+    assert HW.sanitize_usernames(["John Mack", "Albert K"])== ["john mack", 'albert k']
 
 
 def test_identify_outliers():
-    assert HW.identify_outliers([101, 90, 200]) == [100, 200]
+    assert HW.identify_outliers([101, 90, 200]) == [101, 200]
 
 
 def test_search_and_report():
