@@ -1,55 +1,33 @@
 import analytics
 
 
-# Takes in a list of prices and returns that list with 15% added value
-def process_expenses(rawPrices):
-    # Uses analytics function
-    return analytics.add_percentage(rawPrices, 15)
+def process_expenses(cost_list):
+    updated = analytics.add_percentage(cost_list, 15)
+    return [round(x, 2) for x in updated]
 
 
-# Asks the user for n scores and returns the highest and average score
-def analyze_scores(n):
-    scores = []
-
-    for i in range(n):
-        score = float(input(f"Enter score {i+1}: "))
-        scores.append(score)
-
-    highest = analytics.highest_value(scores)
-    average = analytics.average_value(scores)
-
-    return highest, average
+def analyze_scores(count):
+    values = []
+    for _ in range(count):
+        values.append(float(input()))
+    top = analytics.highest_value(values)
+    avg = analytics.average_value(values)
+    return top, avg
 
 
-# Takes in a list of strings and returns list with spaces removed and lowercase
-def sanitize_usernames(usernames):
-    sanitized = []
-
-    for name in usernames:
-        cleaned = analytics.remove_spaces_lower(name)
-        sanitized.append(cleaned)
-
-    return sanitized
+def sanitize_usernames(name_list):
+    return [analytics.remove_spaces_lower(x) for x in name_list]
 
 
-# Takes in a list and returns a list of all values over 100
-def identify_outliers(values):
-    return analytics.filter_above_threshold(values, 100)
+def identify_outliers(data_points):
+    return analytics.filter_above_threshold(data_points, 100)
 
 
-# Takes in list of items, sanitizes list, asks user for item to search,
-# Uses binary search if sorted, linear search if not
-def search_and_report(items):
-    sanitized_list = []
+def search_and_report(entries):
+    cleaned = [analytics.remove_spaces_lower(x) for x in entries]
+    target = analytics.remove_spaces_lower(input())
 
-    for item in items:
-        cleaned = analytics.remove_spaces_lower(item)
-        sanitized_list.append(cleaned)
+    if analytics.is_sorted(cleaned):
+        return analytics.binary_search(cleaned, target)
+    return analytics.linear_search(cleaned, target)
 
-    search_item = input("Enter item to search for: ")
-    search_item = analytics.remove_spaces_lower(search_item)
-
-    if analytics.is_sorted(sanitized_list):
-        return analytics.binary_search(sanitized_list, search_item)
-    else:
-        return analytics.linear_search(sanitized_list, search_item)
