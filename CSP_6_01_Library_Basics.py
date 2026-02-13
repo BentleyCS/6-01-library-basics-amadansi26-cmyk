@@ -30,12 +30,12 @@ def analyze_scores(n:list):
 # Modify the below function such that it takes in a list of strings and returns that list with all spaces removed
 #and all letters lower case.
 def sanitize_usernames(usernames):
-   analyics = analytics.clean_text(usernames, " ")
+   analyics = analytics.clean_text(usernames)
    usernames = []
    for i in usernames:
        cleaned = name.replace(" ", "").lower()
        usernames.append(cleaned)
-   return usernames
+   return analyics
 
 
 # Modify the list such that it takes in a list as an argument and returns a version of the list with all values over 100.
@@ -62,4 +62,3 @@ def search_and_report(items, target):
     #Binary search
     #Linear search
 search_and_report([1],1)
-
