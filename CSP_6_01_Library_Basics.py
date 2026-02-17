@@ -53,12 +53,35 @@ def identify_outliers(nums):
 #Then return the location of the word using binary search if the list is in order and linear search if it is not.
 #example items = ["  Apple", "Banana ", "  CHERRY  ", " date "]
 def search_and_report(items, target):
-    pass
-    #Sanitize it
-    #Check if in order
-    for i in range(len(items)-1):
-        if items[i] > items[i+1]:
-            print("Not in order")
-    #Binary search
-    #Linear search
-search_and_report([1],1)
+    # Sanitize the list
+    items = [str(item).strip().lower() for item in items]
+    target = str(target).strip().lower()
+
+    # Check if list is in order
+    in_order = True
+    for i in range(len(items) - 1):
+        if items[i] > items[i + 1]:
+            in_order = False
+            break
+
+    # If sorted do Binary Search
+    if in_order:
+        left = 0
+        right = len(items) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if items[mid] == target:
+                return mid
+            elif items[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return -1
+
+    # If not sorted do Linear Search
+    else:
+        for index, item in enumerate(items):
+            if item == target:
+                return index
+        return -1
